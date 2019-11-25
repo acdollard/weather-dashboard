@@ -8,38 +8,75 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/4439e3b362.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="header">Weather Dashboard</header>
+    <header class="container-fluid bg-dark color-light pt-3 pb-3 text-center"><h1 class="text-white">Weather Dashboard</h1></header>
 
-    <div class="flex-container">
-        <div class="row">
+    <div class="container-fluid row">
             <div class="col-3 justify-content-center">
                     <h5 class="justify-content-center pt-2 pl-3">Search by city: </h5>
-                    <form class="form-inline my-2 my-lg-0 mt-3 ml-3">
-                            <input class="form-control mr-sm-2 float-left" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0 float-right" type="submit">Search</button>
-                    </form>
-            </div>
-            <div class="col-9"> 
-                    <div class="jumbotron">
-                            <div class="container">
-                              <h1 class="display-3">Fluid jumbotron</h1>
-                              <p class="lead">This is a modified jumbotron that occupies
-                                              the entire horizontal space of its parent.</p>
-                            </div>
+                        <form class="form-inline my-2 my-lg-0 mt-3 ml-3" onsubmit="return false">
+                                <input class="form-control mr-sm-2 float-left" type="search" placeholder="Search" id= "search_bar" aria-label="Search">
+                                <button id="searchbtn" class="btn btn-outline-light bg-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    <div class="container my-3 col-6">
+                        <button id="city1" type="button" class="btn btn-secondary my-2 mx-3">Atlanta</button>
+                        <button id="city-2" type="button" class="btn btn-secondary my-2 mx-3">Chicago</button>
+                        <button id="city-3" type="button" class="btn btn-secondary my-2 mx-3">New York</button>
+                        <button id="city-4" type="button" class="btn btn-secondary my-2 mx-3">New York</button>
+                        <button id="city-5" type="button" class="btn btn-secondary my-2 mx-3">New York</button>
+                        <button id="city-6" type="button" class="btn btn-secondary my-2 mx-3">New York</button>
                     </div>
+            </div>
+
+
+            
+            <div class="today_weather col-9">
+                <div class="bg-light">
+                        <h2 class="justify-content-center">Today's Weather</h2>
+                        <div class="row">
+                            <div class="col-6">
+                                <p>Temperature:</p>
+                                <p>Humidity</p>
+                                <p>Wind Speed</p>
+                            </div>
+                        </div> 
+                </div>  
+
+                
+                    <div class="bg-light">
+                        <h5 class="text-dark">Five Day Weather Forecast</h5>
+                    </div>
+                <div class="row justify-content-center">
+                    <div id="day1" class="card-body bg-primary mx-2 my-2">
+                    </div>
+                    <div id="day2" class="card-body bg-primary mx-2 my-2">
+                    </div>
+                    <div id="day3" class="card-body bg-primary mx-2 my-2"> 
+                    </div>
+                    <div id="day4" class="card-body bg-primary mx-2 my-2">
+                    </div>
+                    <div id="day5" class="card-body bg-primary mx-2 my-2">
+                    </div>
+                </div>
+
+
+
+    
+                    
+
+
 
             </div>
         </div>
-    </div>
 
 
 
 
 
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
