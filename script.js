@@ -7,11 +7,10 @@ let queryurl ="";
 
 $("#searchbtn").on("click", function(event){
     event.preventDefault();
-    debugger; 
      city = $(this).prev().val().trim()
       url = "https://api.openweathermap.org/data/2.5/forecast?q=";    
 // let city = "richmond";
-     APIkey = "&mode=xml&appid=5ce8439fd4264478d1da0b24a7cd547d";
+     APIkey = "&appid=5ce8439fd4264478d1da0b24a7cd547d";
  queryurl = url + city + APIkey;
 
 
