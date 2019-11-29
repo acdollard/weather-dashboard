@@ -25,28 +25,31 @@ $("#searchbtn").on("click", function(event){
 
         //create empty array where the 5 day forecast data will go
         
-        console.log(response);
-        console.log(response.list[1].dt_txt);  
-        let time = response.list[1].dt_txt.split(" ")[1];
+        // console.log(response);
+        // console.log(response.list[1].dt_txt);  
+        // let time = response.list[1].dt_txt.split(" ")[1];
         
         //if statemenet to get data for 12:00 noon 
         
         //iterate through the 40 weather data sets
         for(let i=0; i< response.list.length; i++){
-            let day_number = 0; 
             
             //set day number var
             //if the time in the data set matches noon, populate card with weather information
-            if(response.list[i].dt_txt.split(" ")[1] == "12:00:00")
+            if(response.list[i].dt_txt.split(" ")[1] == "15:00:00")
             {
-                $("#" + day_number + "five_day_temp").text(response.list[i].main.temp)
-                $("#" + day_number + "five_day_humidity").text(response.list[i].main.humidity)
+                let day_number = 0; 
+                $("#" + day_number + "date").text(response.list[i].dt_txt.split(" ")[0]); 
+                $("#" + day_number + "five_day_temp").text("Temp: " + response.list[i].main.temp);
+                $("#" + day_number + "five_day_humidity").text("Humidity: " + response.list[i].main.humidity);
+                $("#" + day_number + "five_day_icon").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
                 // debugger; 
                 //then increment the day number so the next card gets populated 
+                console.log(response.list[i].weather[0].icon);
+                console.log(day_number);
+                console.log(response.list[i].main.temp);
                 day_number++; 
-                console.log(day_number)
-                console.log(response.list[i].main.temp)
-            }
+                        }
             
         }
     });
