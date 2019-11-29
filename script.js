@@ -22,22 +22,54 @@ $("#searchbtn").on("click", function(event){
         method: "GET",
         
     }).then(function(response){
+
+        //create empty array where the 5 day forecast data will go
+        
         console.log(response);
         console.log(response.list[1].dt_txt);  
-        let time = response.list[1].dt_txt;
+        let time = response.list[1].dt_txt.split(" ")[1];
         
-        console.log(time.split(" ")[1]);
-        // let split_time = time.split(" ")[1];
+        //if statemenet to get data for 12:00 noon 
+        
+        //iterate through the 40 weather data sets
+        for(let i=0; i< response.list.length; i++){
+            let day_number = 0; 
+            
+            //set day number var
+            //if the time in the data set matches noon, populate card with weather information
+            if(response.list[i].dt_txt.split(" ")[1] == "12:00:00")
+            {
+                $("#" + day_number + "five_day_temp").text(response.list[i].main.temp)
+                $("#" + day_number + "five_day_humidity").text(response.list[i].main.humidity)
+                // debugger; 
+                //then increment the day number so the next card gets populated 
+                day_number++; 
+                console.log(day_number)
+                console.log(response.list[i].main.temp)
+            }
+            
+        }
+    });
+    
+    
+    
 
-     });
 
+
+
+
+
+
+
+//function to display data in main div 
      $.ajax({
          url:current_weather_url,
          method: "GET", 
      }).then(function(current_data){
          console.log(current_data);
-         console.log("The temperature in " + city + " is: " + current_data.main.temp);
-         $("#today_temp").text("Temperature: " + (current_data.main.temp - 273.15 * (9/5) + 32));
+         let temp = Math.round(((current_data.main.temp - 273.15) * 9/5 + 32))
+         console.log("The temperature in " + city + " is: " + temp);
+         $("#today_temp").text("Temperature: " + temp);
          $("#today_humidity").text("Humidity: " + current_data.main.humidity);
          $("#today_wind_speed").text("Wind Speed: " + current_data.wind.speed);
          $("#today_icon_div").attr("src", "http://openweathermap.org/img/w/" + current_data.weather[0].icon + ".png");
