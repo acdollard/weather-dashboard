@@ -40,7 +40,8 @@ $("#searchbtn").on("click", function(event){
             if(response.list[i].dt_txt.split(" ")[1] == "15:00:00")
             {
                 $("#" + day_number + "date").text(response.list[i].dt_txt.split(" ")[0]); 
-                $("#" + day_number + "five_day_temp").text("Temp: " + response.list[i].main.temp);
+                let temp = Math.round(((response.list[i].main.temp - 273.15) *9/5+32));
+                $("#" + day_number + "five_day_temp").text("Temp: " + temp + String.fromCharCode(176)+"F");
                 $("#" + day_number + "five_day_humidity").text("Humidity: " + response.list[i].main.humidity);
                 $("#" + day_number + "five_day_icon").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
                 // debugger; 
@@ -72,7 +73,7 @@ $("#searchbtn").on("click", function(event){
          console.log(current_data);
          let temp = Math.round(((current_data.main.temp - 273.15) * 9/5 + 32))
          console.log("The temperature in " + city + " is: " + temp);
-         $("#today_temp").text("Temperature: " + temp);
+         $("#today_temp").text("Temperature: " + temp + String.fromCharCode(176)+"F");
          $("#today_humidity").text("Humidity: " + current_data.main.humidity);
          $("#today_wind_speed").text("Wind Speed: " + current_data.wind.speed);
          $("#today_icon_div").attr("src", "http://openweathermap.org/img/w/" + current_data.weather[0].icon + ".png");
