@@ -22,7 +22,7 @@ $("#searchbtn").on("click", function(event){
         method: "GET",
         
     }).then(function(response){
-
+        
         //create empty array where the 5 day forecast data will go
         
         // console.log(response);
@@ -30,6 +30,7 @@ $("#searchbtn").on("click", function(event){
         // let time = response.list[1].dt_txt.split(" ")[1];
         
         //if statemenet to get data for 12:00 noon 
+        let day_number = 0; 
         
         //iterate through the 40 weather data sets
         for(let i=0; i< response.list.length; i++){
@@ -38,7 +39,6 @@ $("#searchbtn").on("click", function(event){
             //if the time in the data set matches noon, populate card with weather information
             if(response.list[i].dt_txt.split(" ")[1] == "15:00:00")
             {
-                let day_number = 0; 
                 $("#" + day_number + "date").text(response.list[i].dt_txt.split(" ")[0]); 
                 $("#" + day_number + "five_day_temp").text("Temp: " + response.list[i].main.temp);
                 $("#" + day_number + "five_day_humidity").text("Humidity: " + response.list[i].main.humidity);
