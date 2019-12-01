@@ -7,13 +7,14 @@
 }
 
 
-.btn{
+.listbtn{
     background-color: #3d6488;
     color: white;
     font-family: 'Open Sans Condensed', sans-serif;
     border-radius: 2px; 
     margin-left: 20%;
     margin-right: 20%;
+    width: 60%;
     margin-top: 2px;
     margin-bottom: 2px;
 
@@ -28,4 +29,13 @@
 .card-body{
     background-color: #3d6488;
     color: white;
+}
+
+#searchbtn{
+    background-color: #3d6488;
+    color: white;
+    font-family: 'Open Sans Condensed', sans-serif;
+    border-radius: 2px; 
+    
+
 }

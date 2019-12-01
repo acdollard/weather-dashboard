@@ -38,7 +38,7 @@ function renderButtons(){
 
         let buttonEl = document.createElement("button");
         buttonEl.textContent = cityName; 
-        buttonEl.setAttribute("class", "btn"); 
+        buttonEl.setAttribute("class", "listbtn"); 
 
         citiesDiv.appendChild(buttonEl);
       }
@@ -108,15 +108,6 @@ $("#searchbtn").on("click", function(event){
             
         }
     });
-    
-    
-    
-
-
-
-
-
-
 
 
 //function to display data in main div 
