@@ -4,17 +4,77 @@ let url="";
 let APIkey="";
 let queryurl ="";
 let currenturl = "";
+let citiesDiv = document.getElementById("searched_cities_container");
+//start with empty array
+let cities = []; 
+init(); 
+
+//run function to pull saved cities from local storage and fill array with it
+function init(){
+    debugger; 
+    let saved_cities = JSON.parse(localStorage.getItem("cities"));
+
+    if (cities !== null){
+        cities = saved_cities
+    }   
+    
+    renderButtons(); 
+}
+
+//sets localstorage item to cities array 
+function storeCities(){
+    localStorage.setItem("cities", JSON.stringify(cities)); 
+}
+
+
+
+
+
+//render buttons for each element in array 
+function renderButtons(){
+    citiesDiv.innerHTML = ""; 
+    for(let i=0; i < cities.length; i++){
+        let cityName = cities[i]; 
+
+        let buttonEl = document.createElement("button");
+        buttonEl.textContent = cityName; 
+        buttonEl.setAttribute("class", "btn"); 
+
+        citiesDiv.appendChild(buttonEl);
+      }
+    }
+
+
+
+
+
+
 
 
 $("#searchbtn").on("click", function(event){
     event.preventDefault();
-     city = $(this).prev().val().trim()
-      url = "https://api.openweathermap.org/data/2.5/forecast?q=";    
-      currenturl = "https://api.openweathermap.org/data/2.5/weather?q=";
-// let city = "richmond";
-     APIkey = "&appid=5ce8439fd4264478d1da0b24a7cd547d";
- queryurl = url + city + APIkey;
- current_weather_url = currenturl + city + APIkey; 
+    city = $(this).prev().val().trim()
+    
+    
+    //push the city user entered into cities array 
+    cities.push(city);
+    //make sure cities array.length is never more than 8 
+    if(cities.length > 8){
+       cities.shift()
+    }
+    //return from function early if form is blank
+    if (city == ""){
+        return; 
+    }
+    
+    storeCities(); 
+    renderButtons(); 
+
+    url = "https://api.openweathermap.org/data/2.5/forecast?q=";    
+    currenturl = "https://api.openweathermap.org/data/2.5/weather?q=";
+    APIkey = "&appid=5ce8439fd4264478d1da0b24a7cd547d";
+    queryurl = url + city + APIkey;
+    current_weather_url = currenturl + city + APIkey; 
 
 
     $.ajax({
@@ -23,13 +83,7 @@ $("#searchbtn").on("click", function(event){
         
     }).then(function(response){
         
-        //create empty array where the 5 day forecast data will go
-        
-        // console.log(response);
-        // console.log(response.list[1].dt_txt);  
-        // let time = response.list[1].dt_txt.split(" ")[1];
-        
-        //if statemenet to get data for 12:00 noon 
+
         let day_number = 0; 
         
         //iterate through the 40 weather data sets
