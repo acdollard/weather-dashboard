@@ -55,6 +55,7 @@ $("#searchbtn").on("click", function(event){
     event.preventDefault();
     city = $(this).prev().val().trim()
     
+    $("#name_of_city").text("Today's Weather in " + city);
     
     //push the city user entered into cities array 
     cities.push(city);
