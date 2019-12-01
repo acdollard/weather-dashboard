@@ -11,7 +11,6 @@ init();
 
 //run function to pull saved cities from local storage and fill array with it
 function init(){
-    debugger; 
     let saved_cities = JSON.parse(localStorage.getItem("cities"));
 
     if (cities !== null){
@@ -45,7 +44,13 @@ function renderButtons(){
     }
 
 
-
+$(".listbtn").on("click", function(event){
+    event.preventDefault();
+    console.log("hello?");
+    city = $(this).text().trim();
+    debugger; 
+    APIcalls(); 
+})
 
 
 
@@ -55,36 +60,38 @@ $("#searchbtn").on("click", function(event){
     event.preventDefault();
     city = $(this).prev().val().trim()
     
-    $("#name_of_city").text("Today's Weather in " + city);
     
     //push the city user entered into cities array 
     cities.push(city);
     //make sure cities array.length is never more than 8 
     if(cities.length > 8){
-       cities.shift()
+        cities.shift()
     }
     //return from function early if form is blank
     if (city == ""){
         return; 
     }
-    
+    APIcalls();
     storeCities(); 
-    renderButtons(); 
+    renderButtons();
+})
 
+
+function APIcalls(){
+    
     url = "https://api.openweathermap.org/data/2.5/forecast?q=";    
     currenturl = "https://api.openweathermap.org/data/2.5/weather?q=";
     APIkey = "&appid=5ce8439fd4264478d1da0b24a7cd547d";
     queryurl = url + city + APIkey;
     current_weather_url = currenturl + city + APIkey; 
-
-
+    
+    $("#name_of_city").text("Today's Weather in " + city);
+    debugger; 
     $.ajax({
         url: queryurl,
         method: "GET",
         
     }).then(function(response){
-        
-
         let day_number = 0; 
         
         //iterate through the 40 weather data sets
@@ -105,8 +112,7 @@ $("#searchbtn").on("click", function(event){
                 console.log(day_number);
                 console.log(response.list[i].main.temp);
                 day_number++; 
-                        }
-            
+                        }   
         }
     });
 
@@ -122,11 +128,12 @@ $("#searchbtn").on("click", function(event){
          $("#today_temp").text("Temperature: " + temp + String.fromCharCode(176)+"F");
          $("#today_humidity").text("Humidity: " + current_data.main.humidity);
          $("#today_wind_speed").text("Wind Speed: " + current_data.wind.speed);
-         $("#today_icon_div").attr("src", "http://openweathermap.org/img/w/" + current_data.weather[0].icon + ".png");
+         $("#today_icon_div").attr({"src": "http://openweathermap.org/img/w/" + current_data.weather[0].icon + ".png",
+          "height": "100px", "width":"100px"});
      })
     
 
-})
+}
 
 
 
