@@ -8,6 +8,8 @@ let citiesDiv = document.getElementById("searched_cities_container");
 //start with empty array
 let cities = []; 
 init(); 
+listClicker(); 
+searchClicker(); 
 
 //run function to pull saved cities from local storage and fill array with it
 function init(){
@@ -26,10 +28,7 @@ function storeCities(){
 }
 
 
-
-
-
-//render buttons for each element in array 
+//render buttons for each element in cities array as a search history for user
 function renderButtons(){
     citiesDiv.innerHTML = ""; 
     if(cities == null){
@@ -46,8 +45,8 @@ function renderButtons(){
         citiesDiv.appendChild(buttonEl);
       }
     }
-
-
+//on click function for search history buttons
+function listClicker(){
 $(".listbtn").on("click", function(event2){
     console.log("anybody home?")
     event2.preventDefault();
@@ -55,11 +54,12 @@ $(".listbtn").on("click", function(event2){
     city = $(this).text().trim();
     APIcalls(); 
 })
+}
 
 
 
-
-
+//on click function for main search bar
+function searchClicker() {
 $("#searchbtn").on("click", function(event){
     event.preventDefault();
     city = $(this).prev().val().trim()
@@ -78,8 +78,9 @@ $("#searchbtn").on("click", function(event){
     storeCities(); 
     renderButtons();
 })
+}
 
-
+//runs 2 API calls, one for current weather data and one for five-day forecast, then populates text areas
 function APIcalls(){
     
     url = "https://api.openweathermap.org/data/2.5/forecast?q=";    
@@ -99,10 +100,10 @@ function APIcalls(){
         //iterate through the 40 weather data sets
         for(let i=0; i< response.list.length; i++){
             
-            //set day number var
-            //if the time in the data set matches noon, populate card with weather information
+            //split function to isolate the time from the time/data aspect of weather data, and only select weather reports for 3pm
             if(response.list[i].dt_txt.split(" ")[1] == "15:00:00")
             {
+                //if time of report is 3pm, populate text areas accordingly
                 let day = response.list[i].dt_txt.split("-")[2].split(" ")[0];
                 let month = response.list[i].dt_txt.split("-")[1];
                 let year = response.list[i].dt_txt.split("-")[0];
@@ -111,8 +112,6 @@ function APIcalls(){
                 $("#" + day_number + "five_day_temp").text("Temp: " + temp + String.fromCharCode(176)+"F");
                 $("#" + day_number + "five_day_humidity").text("Humidity: " + response.list[i].main.humidity);
                 $("#" + day_number + "five_day_icon").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
-                // debugger; 
-                //then increment the day number so the next card gets populated 
                 console.log(response.list[i].dt_txt.split("-"));
                 console.log(day_number);
                 console.log(response.list[i].main.temp);
@@ -122,7 +121,7 @@ function APIcalls(){
     });
 
 
-//function to display data in main div 
+    //function to display data in main div 
      $.ajax({
          url:current_weather_url,
          method: "GET", 
