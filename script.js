@@ -35,8 +35,9 @@ function renderButtons(){
     if(cities == null){
         return;
     }
-    for(let i=0; i < cities.length; i++){
-        let cityName = cities[i]; 
+    let unique_cities = [...new Set(cities)];
+    for(let i=0; i < unique_cities.length; i++){
+        let cityName = unique_cities[i]; 
 
         let buttonEl = document.createElement("button");
         buttonEl.textContent = cityName; 
@@ -48,6 +49,7 @@ function renderButtons(){
 
 
 $(".listbtn").on("click", function(event2){
+    console.log("anybody home?")
     event2.preventDefault();
     console.log("hello?");
     city = $(this).text().trim();
@@ -141,4 +143,3 @@ function APIcalls(){
 
 
 
-let shit = 12;
