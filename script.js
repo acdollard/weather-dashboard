@@ -47,8 +47,8 @@ function renderButtons(){
     }
 
 
-$(".listbtn").on("click", function(event){
-    event.preventDefault();
+$(".listbtn").on("click", function(event2){
+    event2.preventDefault();
     console.log("hello?");
     city = $(this).text().trim();
     APIcalls(); 
@@ -87,7 +87,6 @@ function APIcalls(){
     current_weather_url = currenturl + city + APIkey; 
     
     $("#name_of_city").text("Today's Weather in " + city);
-    debugger; 
     $.ajax({
         url: queryurl,
         method: "GET",
@@ -102,14 +101,17 @@ function APIcalls(){
             //if the time in the data set matches noon, populate card with weather information
             if(response.list[i].dt_txt.split(" ")[1] == "15:00:00")
             {
-                $("#" + day_number + "date").text(response.list[i].dt_txt.split(" ")[0]); 
+                let day = response.list[i].dt_txt.split("-")[2].split(" ")[0];
+                let month = response.list[i].dt_txt.split("-")[1];
+                let year = response.list[i].dt_txt.split("-")[0];
+                $("#" + day_number + "date").text(month + "/" + day + "/" + year); 
                 let temp = Math.round(((response.list[i].main.temp - 273.15) *9/5+32));
                 $("#" + day_number + "five_day_temp").text("Temp: " + temp + String.fromCharCode(176)+"F");
                 $("#" + day_number + "five_day_humidity").text("Humidity: " + response.list[i].main.humidity);
                 $("#" + day_number + "five_day_icon").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
                 // debugger; 
                 //then increment the day number so the next card gets populated 
-                console.log(response.list[i].weather[0].icon);
+                console.log(response.list[i].dt_txt.split("-"));
                 console.log(day_number);
                 console.log(response.list[i].main.temp);
                 day_number++; 
