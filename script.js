@@ -13,7 +13,7 @@ init();
 function init(){
     let saved_cities = JSON.parse(localStorage.getItem("cities"));
 
-    if (cities !== null){
+    if (saved_cities !== null){
         cities = saved_cities
     }   
     
@@ -32,6 +32,9 @@ function storeCities(){
 //render buttons for each element in array 
 function renderButtons(){
     citiesDiv.innerHTML = ""; 
+    if(cities == null){
+        return;
+    }
     for(let i=0; i < cities.length; i++){
         let cityName = cities[i]; 
 
@@ -48,7 +51,6 @@ $(".listbtn").on("click", function(event){
     event.preventDefault();
     console.log("hello?");
     city = $(this).text().trim();
-    debugger; 
     APIcalls(); 
 })
 
@@ -59,7 +61,6 @@ $(".listbtn").on("click", function(event){
 $("#searchbtn").on("click", function(event){
     event.preventDefault();
     city = $(this).prev().val().trim()
-    
     
     //push the city user entered into cities array 
     cities.push(city);
