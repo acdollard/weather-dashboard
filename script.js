@@ -43,13 +43,14 @@ function renderButtons(){
         buttonEl.setAttribute("class", "listbtn"); 
 
         citiesDiv.appendChild(buttonEl);
+        listClicker();
       }
     }
 //on click function for search history buttons
 function listClicker(){
-$(".listbtn").on("click", function(event2){
+$(".listbtn").on("click", function(event){
     console.log("anybody home?")
-    event2.preventDefault();
+    event.preventDefault();
     console.log("hello?");
     city = $(this).text().trim();
     APIcalls(); 
